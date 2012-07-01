@@ -1,0 +1,33 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence 
+    http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+	version="1.0">
+	<persistence-unit name="dbschema">
+		<properties>
+			<property name="hibernate.ejb.cfgfile" value="./resources/hibernate.cfg.xml" />
+		</properties>
+	</persistence-unit>
+	<persistence-unit name="defaultManager"
+		transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<properties>
+			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+			<property name="hibernate.connection.url"
+				value="jdbc:mysql://46.22.180.172:3306/nextel_content_portal"></property>
+			<property name="hibernate.connection.username" value="nexteladmin" />
+			<property name="hibernate.connection.password" value="UVamaMuS$" />
+			<property name="hibernate.show_sql" value="true" />
+			<!-- <property name="hibernate.hbm2ddl.auto" value="create"></property> 
+				<property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.EhCacheRegionFactory" 
+				/> <property name="hibernate.cache.use_second_level_cache" value="true" /> 
+				<property name="hibernate.cache.use_query_cache" value="true" /> <property 
+				name="hibernate.generate_statistics" value="true" /> -->
+			<property name="hibernate.search.default.directory_provider" value="fileSystem" />
+			<property name="hibernate.search.indexing_strategy" value="manual" />
+			<property name="hibernate.search.default.locking_strategy" value="none" />
+			<property name="hibernate.search.default.indexBase" value="/opt/indexes" />
+	
+		</properties>
+	</persistence-unit>
+</persistence>

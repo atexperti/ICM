@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration PUBLIC "-//log4j/log4j Configuration//EN" "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    
+    <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+       <layout class="org.apache.log4j.PatternLayout"> 
+          <param name="ConversionPattern" value="%d %-5p %c.%M:%L - %m%n"/> 
+       </layout> 
+    </appender>
+    
+    <appender name="FILE_LOG" class="org.apache.log4j.DailyRollingFileAppender">
+    <param name="File" value="/opt/logs/icm.log" />
+    <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+    <param name="Append" value="true" />
+    <param name="Encoding" value="UTF-8" />
+    <param name="MaxFileSize" value="4MB" />
+    <param name="MaxBackupIndex" value="10" />
+ 
+    <layout class="org.apache.log4j.PatternLayout">
+      <!-- The default pattern: Date Priority [Category] Message\n -->
+       <param name="ConversionPattern" value="%d %-5p %c.%M:%L - %m%n"/> 
+    </layout>
+  </appender>
+ 
+    <!-- specify the logging level for loggers from other libraries -->
+    <logger name="com.opensymphony">
+        <level value="ERROR" />
+        <appender-ref ref="FILE_LOG" /> 
+    </logger>
+
+    <logger name="org.apache.struts2">
+        <level value="ERROR" />
+        <appender-ref ref="FILE_LOG" /> 
+    </logger>
+
+    <logger name="org.hibernate">
+        <level value="DEBUG" />
+        <appender-ref ref="FILE_LOG" /> 
+    </logger>
+
+  <!-- log SQL statements (same as show_sql=true) -->
+    <logger name="org.hibernate.hql">
+        <level value="DEBUG"/>
+        <appender-ref ref="FILE_LOG" /> 
+    </logger>
+
+    <logger name="org.hibernate.SQL">
+        <level value="DEBUG"/>
+        <appender-ref ref="FILE_LOG" /> 
+    </logger>
+
+    <logger name="org.hibernate.type">
+        <level value="DEBUG" />
+        <appender-ref ref="FILE_LOG" /> 
+    </logger>
+
+    <logger name="org.springframework">
+        <level value="DEBUG" />
+        <appender-ref ref="FILE_LOG" /> 
+    </logger> 
+   <!-- for all other loggers log only info and above log messages -->
+    <root>
+        <priority value="INFO"/> 
+        <appender-ref ref="FILE_LOG" /> 
+    </root> 
+</log4j:configuration> 
+

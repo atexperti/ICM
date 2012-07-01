@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "struts-2.1.7.dtd">
+
+<struts>
+
+	<constant name="struts.locale" value="es_MX" />
+	<constant name="struts.custom.i18n.resources" value="properties/global,properties/config" />
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+	<constant name="struts.ui.theme" value="css_xhtml" />
+	<package name="default" extends="struts-default " namespace="/">
+		<interceptors>
+			<interceptor name="logging"
+				class="org.icm.facade.LoggingInterceptor"></interceptor>
+
+			<interceptor-stack name="appDefault">
+				<interceptor-ref name="defaultStack">
+					<param name="exception.logEnabled">true</param>
+					<param name="exception.logLevel">ERROR</param>
+				</interceptor-ref>
+				<interceptor-ref name="logging" />
+				<interceptor-ref name="exception" />
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="appDefault"></default-interceptor-ref>
+		<global-results>
+			<result name="error">error.jsp</result>
+		</global-results>
+
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.Exception"
+				result="error" />
+		</global-exception-mappings>
+
+		<action name="" class="home">
+			<result name="success">home.jsp</result>
+		</action>
+		<action name="locale" class="home">
+			<result name="success">home.jsp</result>
+		</action>
+
+		<action name="home" class="home">
+			<interceptor-ref name="store">
+				<param name="operationMode">RETRIEVE</param>
+			</interceptor-ref>
+			<result name="success">home.jsp</result>
+		</action>
+
+		
+		<action name="captchaimage" class="captchaImage" method="execute">
+			<result name="success" type="stream">
+				<param name="contentType">image/png</param>
+				<param name="inputName">inputStream</param>
+				<param name="bufferSize">1024</param>
+			</result>
+		</action>
+
+		<action name="forgetpassword" class="forgetpassword">
+			<result>home.jsp</result>
+		</action>
+
+		<action name="getpassword" class="forgetpassword" method="sendPassword">
+			<result name="success">home.jsp</result>
+			<result name="input">home.jsp</result>
+		</action>
+		
+		<action name="useraccount" class="userAccount" method="execute">
+			<result name="success">HelloWorld.jsp</result>
+			<result name="input">home.jsp</result>
+		</action>
+
+		<action name="login" class="login" method="doLogin">
+			<interceptor-ref name="store">
+				<param name="operationMode">STORE</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack" />
+
+			<result name="success" type="redirectAction">
+				<param name="actionName">home</param>
+				<param name="namespace">/</param>
+			</result>
+			<result name="input" type="redirectAction">
+				<param name="actionName">home</param>
+				<param name="namespace">/</param>
+			</result>
+		</action>
+		<action name="logout" class="login" method="doLogout">
+			<interceptor-ref name="validation">
+				<param name="excludeMethods">doLogout</param>
+			</interceptor-ref>
+			<result name="success" type="redirectAction">
+				<param name="actionName">home</param>
+				<param name="namespace">/</param>
+			</result>
+		</action>
+
+		<action name="register" class="registerUser" method="input">
+			<result name="success">signup.jsp</result>
+		</action>
+
+		<action name="registeruser" class="registerUser" method="execute">
+			<result name="success" type="redirectAction">
+				<param name="actionName">home</param>
+				<param name="namespace">/</param>
+			</result>
+			<result name="input">signup.jsp</result>
+		</action>
+
+		
+
+	</package>
+
+	<package namespace="/ajax" name="ajax" extends="json-default">
+		<action name="login" class="login" method="execute">
+			<result name="success" type="json">
+				<param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">
+					userName,password
+				</param>
+			</result>
+		</action>
+		
+		
+	</package>
+
+</struts>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+           		http://www.springframework.org/schema/context 
+				http://www.springframework.org/schema/context/spring-context-3.1.xsd 
+				http://www.springframework.org/schema/aop  
+				http://www.springframework.org/schema/aop/spring-aop-3.1.xsd 
+				http://www.springframework.org/schema/util 
+				http://www.springframework.org/schema/util/spring-util-3.1.xsd 
+				http://www.springframework.org/schema/tx 
+ 				http://www.springframework.org/schema/tx/spring-tx.xsd 
+ 				http://www.springframework.org/schema/cache 
+ 				http://www.springframework.org/schema/cache/spring-cache.xsd">
+
+	<import resource="DataSource.xml" />
+	<context:component-scan base-package="org.valuelabs" />
+	<aop:aspectj-autoproxy />
+	<!-- Enable Fine-Grained Autowiring with Annotations -->
+	<context:annotation-config />
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename">
+			<value>properties/global</value>
+		</property>
+	</bean>
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+		p:location="classpath:properties/database.properties"
+		p:placeholderPrefix="$dataSource" />
+
+	<bean id="persistenceUnitManager"
+		class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
+		<property name="defaultDataSource" ref="c3p0DataSource" />
+	</bean>
+
+	<!-- needed for Local JDBC Transaction -->
+	<bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitManager" ref="persistenceUnitManager" />
+		<property name="persistenceUnitName" value="dbschema" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="false" />
+				<property name="generateDdl" value="true" />
+				<property name="database" value="MYSQL" />
+			</bean>
+		</property>
+
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<tx:annotation-driven mode="proxy"
+		transaction-manager="transactionManager" />
+
+	<!--<cache:annotation-driven /> <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager" 
+		p:cache-manager-ref="ehcache" /> <bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" 
+		p:config-location="classpath:resources/ehcache.xml" /> -->
+
+	<bean id="baseDao" class="org.icm.dao.BaseDAOImpl">
+	</bean>
+
+
+	<bean id="userDao" class="org.icm.dao.UserDaoImpl">
+	</bean>
+	<bean id="userBo" class="org.icm.facade.UserBoImpl">
+		<property name="userDao" ref="userDao" />
+	</bean>
+	<bean id="audioDao" class="org.icm.dao.AudioDaoImpl">
+	</bean>
+	<bean id="christianNeedsDao" class="org.icm.dao.ChristianNeedsDaoImpl">
+	</bean>
+	<bean id="videoDao" class="org.icm.dao.VideoDaoImpl">
+	</bean>
+	<bean id="wallpaperDao" class="org.icm.dao.WallpapersDaoImpl">
+	</bean>
+	<bean id="pptDao" class="org.icm.dao.PptDaoImpl">
+	</bean>
+	<bean id="websiteTemplateDao" class="org.icm.dao.WebsiteTemplateDaoImpl">
+	</bean>
+	<bean id="wallpaperDao" class="org.icm.dao.WallpapersDaoImpl">
+	</bean>
+	<bean id="mediaBo" class="org.icm.facade.MediaBoImpl">
+		<property name="audioDao" ref="audioDao" />
+		<property name="videoDao" ref="videoDao" />
+		<property name="websiteTemplateDao" ref="websiteTemplateDao" />
+		<property name="pptDao" ref="pptDao" />
+		<property name="christianNeedsDaoDao" ref="christianNeedsDaoDao" />
+		<property name="websiteTemplateDao" ref="websiteTemplateDao" />
+	</bean>
+	<bean id="media" class="com.valuelabs.momac.action.CategoryAction"
+		init-method="init" scope="request">
+
+	</bean>
+
+	<!-- Struts Actions -->
+	<bean id="baseAction" class="org.icm.action.BaseAction" scope="request">
+	</bean>
+	<bean id="login" class="org.icm.action.LoginAction" scope="request"></bean>
+
+	<bean id="registerUser" class="org.icm.action.RegisterAction"
+		scope="request">
+		<property name="userBo" ref="userBo" />
+		<property name="deviceModelBo" ref="deviceModelBo" />
+	</bean>
+	<bean id="userAccount" class="org.icm.action.UserAccountAction"
+		scope="request"></bean>
+
+
+	<bean id="captchaImage" class="org.icm.action.CaptchaAction"
+		scope="request"></bean>
+	<bean id="home" class="org.icm.action.HomeAction" init-method="init"
+		scope="request">
+		<property name="audioDao" ref="audioDao" />
+		<property name="videoDao" ref="videoDao" />
+		<property name="websiteTemplateDao" ref="websiteTemplateDao" />
+		<property name="pptDao" ref="pptDao" />
+		<property name="christianNeedsDaoDao" ref="christianNeedsDaoDao" />
+		<property name="websiteTemplateDao" ref="websiteTemplateDao" />
+	</bean>
+	<bean id="forgetpassword" class="org.icm.action.ForgetPasswordAction"
+		scope="request">
+	</bean>
+
+	<!-- Aspect -->
+	<bean id="logAspect" class="org.icm.facade.LoggingAspect" />
+
+
+	<bean id="mailDispature" class="org.icm.mail.MailDispature">
+		<property name="mailSender" ref="mailSender" />
+	</bean>
+	<!-- Stuff required for hibernate -->
+
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.org" />
+		<property name="port" value="587" />
+		<property name="username" value="nagesh.vejju@gmail.com" />
+		<property name="password" value="S@m@th@n@g@r" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="customeMailMessage" class="org.springframework.mail.SimpleMailMessage">
+		<property name="from" value="nagesh.vejju@gmail.com" />
+		<property name="to" value="nagesh.vejju@gmail.com" />
+		<property name="subject" value="ICM" />
+		<property name="text">
+			<value>
+				Please find the attached errors for todays content ingestion
+			</value>
+		</property>
+	</bean>
+	<bean id="mailDispatcher" class="org.icm.mail.MailDispatcher">
+		<property name="mailSender" ref="mailSender" />
+		<property name="simpleMailMessage" ref="customeMailMessage" />
+	</bean>
+
+
+
+</beans>

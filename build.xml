@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<!-- By default, only the Clean and Build commands use this build script. -->
+<!-- Commands such as Run, Debug, and Test only use this build script if -->
+<!-- the Compile on Save feature is turned off for the project. -->
+<!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
+<!-- in the project's Project Properties dialog box.-->
+<project name="NextelCMSPortal" default="deploy_stage" basedir=".">
+	<description>Builds the war file for Nextel CMS Portal</description>
+	<property name="war-file" value="${ant.project.name}.war" />
+	<property name="src-dir" value="src" />
+	<property name="build-dir" value="build/classes" />
+	<property name="build-dir" value="css" />
+	<property name="build-dir" value="images" />
+	<property name="build-dir" value="scripts" />
+	<property name="build-dir" value="resources" />
+	<property name="webxml-file" value="WebContent/WEB-INF/web.xml" />
+	<property name="lib-dir" value="WebContent/WEB-INF/lib" />
+
+	<path id="ncp.class.path">
+		<fileset dir="WebContent/WEB-INF/lib">
+			<exclude name="mysql-connector-java-5.1.6.jar" />
+			<exclude name="servlet-api.jar" />
+		</fileset>
+	</path>
+
+	<target name="compile" description="Compile Nextel CMS Portal source files" depends="clean">
+		<mkdir dir="${build-dir}" />
+		<javac debug="on" srcdir="${src-dir}" destdir="${build-dir}" includes="**/*" verbose="true">
+			<classpath refid="ncp.class.path" />
+		</javac>
+	</target>
+
+	<target name="war" description="builds Nextel CMS Portal war file" depends="compile">
+		<echo message="Building NextelCMSPortal.war file" />
+		<war id="NextelCMSPortal_war" warfile="build/${war-file}" webxml="${webxml-file}">
+			<classes dir="${build-dir}" />
+			
+			<fileset dir="WebContent" id="id">
+				<exclude name="WEB-INF/lib/servlet-api.jar"/>
+				<exclude name="WEB-INF/lib/mysql-connector-java-5.1.6.jar"/>
+			</fileset>
+		</war>
+	</target>
+
+	<target name="clean">
+		<delete file="build/${war-file}" verbose="on" />
+	</target>
+
+	<target name="deploy_stage" depends="war" description="deploys NextelCMSPortal war file to local path">
+
+		<echo message="Deploying NextelCMSPortal.war to local path" />
+		<copy description="copy war file to local path" file="build/${war-file}" todir="C:\Documents and Settings\spatkari\Desktop\" verbose="true" />
+		<!--<scp description="copy war file to stage server" failonerror="true" file="build/${war-file}" trust="true" remotetodir="momacuser@172.20.148.21:'/cygdrive/d/apache-tomcat-7.0.23/'" password="Feb2012" verbose="true"/>-->
+	</target>
+</project>
