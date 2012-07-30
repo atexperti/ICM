@@ -8,6 +8,7 @@ import java.util.Collection;
 import org.apache.log4j.Logger;
 import org.icm.dao.IAudioDao;
 import org.icm.dao.IChristianNeedsDao;
+import org.icm.dao.ILanguageDAO;
 import org.icm.dao.IPptDao;
 import org.icm.dao.IVideoDao;
 import org.icm.dao.IWallpapersDao;
@@ -28,6 +29,63 @@ public class MediaBoImpl implements IMediaBo {
 
 	private IAudioDao audioDao;
 	private IVideoDao videoDao;
+	private ILanguageDAO languageDAO;
+	public ILanguageDAO getLanguageDAO() {
+		return languageDAO;
+	}
+
+	public void setLanguageDAO(ILanguageDAO languageDAO) {
+		this.languageDAO = languageDAO;
+	}
+
+	public IAudioDao getAudioDao() {
+		return audioDao;
+	}
+
+	public void setAudioDao(IAudioDao audioDao) {
+		this.audioDao = audioDao;
+	}
+
+	public IVideoDao getVideoDao() {
+		return videoDao;
+	}
+
+	public void setVideoDao(IVideoDao videoDao) {
+		this.videoDao = videoDao;
+	}
+
+	public IWebsiteTemplateDao getWebsiteTemplateDao() {
+		return websiteTemplateDao;
+	}
+
+	public void setWebsiteTemplateDao(IWebsiteTemplateDao websiteTemplateDao) {
+		this.websiteTemplateDao = websiteTemplateDao;
+	}
+
+	public IPptDao getPptDao() {
+		return pptDao;
+	}
+
+	public void setPptDao(IPptDao pptDao) {
+		this.pptDao = pptDao;
+	}
+
+	public IChristianNeedsDao getChristianNeedsDao() {
+		return christianNeedsDao;
+	}
+
+	public void setChristianNeedsDao(IChristianNeedsDao christianNeedsDao) {
+		this.christianNeedsDao = christianNeedsDao;
+	}
+
+	public IWallpapersDao getWallpapersDao() {
+		return wallpapersDao;
+	}
+
+	public void setWallpapersDao(IWallpapersDao wallpapersDao) {
+		this.wallpapersDao = wallpapersDao;
+	}
+
 	private IWebsiteTemplateDao websiteTemplateDao;
 	private IPptDao pptDao;
 	private IChristianNeedsDao christianNeedsDao;
@@ -297,7 +355,7 @@ public class MediaBoImpl implements IMediaBo {
 
 			try {
 				obj = audioDao.getAudios();
-
+				//return DummyData.getAudios();
 			} catch (Exception e) {
 				logger.error("Exception occured while getting promotionalContent "
 						+ e);
@@ -308,7 +366,6 @@ public class MediaBoImpl implements IMediaBo {
 
 			try {
 				obj = videoDao.getVideos();
-
 			} catch (Exception e) {
 				logger.error("Exception occured while getting promotionalContent "
 						+ e);
@@ -319,7 +376,6 @@ public class MediaBoImpl implements IMediaBo {
 
 			try {
 				obj = wallpapersDao.getWallpaperss();
-
 			} catch (Exception e) {
 				logger.error("Exception occured while getting promotionalContent "
 						+ e);
@@ -525,20 +581,26 @@ public class MediaBoImpl implements IMediaBo {
 		}
 	}
 
+	@Override
+	public Collection<Object> getMediass(String Keyword, String type) {
+		// TODO Auto-generated method stub
+		return getMediass(Keyword, type, 0);
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.icm.facade.IMediaBo#getMediass(java.lang.String)
 	 */
 	@Override
-	public Collection<Object> getMediass(String Keyword, String type) {
+	public Collection<Object> getMediass(String Keyword, String type, int count) {
 		// TODO Auto-generated method stub
 		Collection<Object>  obj = null;
 		switch (type) {
 		case Constants.AUDIO:
 
 			try {
-				obj = audioDao.getAudios(Keyword);
+				obj = audioDao.getAudios(Keyword,count);
 
 			} catch (Exception e) {
 				logger.error("Exception occured while getting promotionalContent "
@@ -549,7 +611,7 @@ public class MediaBoImpl implements IMediaBo {
 		case Constants.VIDEO:
 
 			try {
-				obj = videoDao.getVideos(Keyword);
+				obj = videoDao.getVideos(Keyword,count);
 
 			} catch (Exception e) {
 				logger.error("Exception occured while getting promotionalContent "
@@ -560,7 +622,7 @@ public class MediaBoImpl implements IMediaBo {
 		case Constants.IMAGES:
 
 			try {
-				obj = wallpapersDao.getWallpaperss(Keyword);
+				obj = wallpapersDao.getWallpaperss(Keyword,count);
 
 			} catch (Exception e) {
 				logger.error("Exception occured while getting promotionalContent "
@@ -609,4 +671,9 @@ public class MediaBoImpl implements IMediaBo {
 		return obj;
 	}
 
+	@Override
+	public Collection<Object> getLanguages() {
+		// TODO Auto-generated method stub
+		return languageDAO.getLanguages();
+	}
 }

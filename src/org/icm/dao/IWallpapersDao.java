@@ -23,5 +23,5 @@ public interface IWallpapersDao {
 	
 	int deleteWallpapers(int id);
 
-	Collection<Object> getWallpaperss(String Keyword);
+	Collection<Object> getWallpaperss(String Keyword,int count);
 }

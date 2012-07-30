@@ -1,5 +1,5 @@
 @charset "utf-8";
-/* CSS Document */
+/* ICM CSS Main */
 
 html {
        overflow-y: scroll;
@@ -11,7 +11,7 @@ body {
 	margin: 0px;
 	padding: 0px;
 	height: 100%;
-	background-color: white;
+	background:#000000 url(../images/icm-bg.jpg) top center no-repeat;
 	font-family: 'Open Sans',arial,sans-serif;
 	font-size: 12px;
 	overflow-x: auto;
@@ -35,7 +35,25 @@ a:hover{
 hr{
 	border:1px dashed #CCC;
 	}
+
+h1{
+	margin:0;
+	padding:0;
+	color:#036;
+	}
+
+h2{
+	margin:0;
+	padding:0;}
+
+h3{
+	margin:0;
+	padding:0;}
 	
+fieldset{
+	border:0;
+	}
+
 select{
 	font-size:12px;
 	font-family: 'Open Sans',arial,sans-serif;
@@ -50,53 +68,66 @@ input{
 	font-family: 'Open Sans',arial,sans-serif;
 	padding:2px;
 	}	
-
-#container{
-	margin: 0 auto;
-	width: 930px;
-}
 	
+#web-box{
+	background:url(../images/header-bg.png);
+	}
+
+/* ICM Header */
+
+
 #header{
-	background-color: #ECECEC;
-	border-right: 1px solid #BDBDBD;
-	border-left: 1px solid #BDBDBD;
-	border-bottom: 1px solid #BDBDBD;
-	padding-left:10px;
-}	
-	
-.icon{
-	background:;
-	width: 32px;
-	height: 32px;
-	display: inline-block;
-	float:left;
+	color:#CCC;
 	padding-top:20px;
-}
-		
-.logo{
-	float: left;
 }	
 
-.logo a{
-	text-decoration:none;
-}	
-
-.logo a:hover{
-	color: #1C5AC4;
+.header-box{
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	margin:0 auto;
+	width:1000px;
+	background:url(../images/patternbg.png);
+	height:130px;
+	padding:10px;
+	-moz-border-radius: 30px 0 0 0;
+	border-radius: 30px 0 0 0;
+	border:1px #FFF solid;
+	border-bottom:0;
 	}
 	
+.logo{
+	float: left;
+	background:url(../images/icm-logo.png);
+	width:240px;
+	height:100px;
+}	
+
 .login{
 	font-size:12px;
 	float:right;
 	width:360px;
 	padding-top:10px;
 	padding-right:10px;
-	padding-bottom:10px;
-	}		
+	padding-bottom:2px;
+	}	
 	
+.login a{
+	color:#CC9;
+	}	
+	
+.login a:hover{
+	color:#CC0;
+	}		
+
+.register{
+	font-size:12px;
+	//float:right;
+	padding-bottom:10px;
+	}
+
 .log{
 	font-size:12px;
-	float:right;
+	//float:right;
 	}
 	
 .log select{
@@ -125,7 +156,7 @@ input{
 	}	
 
 .user{
-	float:right;
+	//float:right;
 	padding-bottom:10px;
 	}	
 	
@@ -142,12 +173,20 @@ input{
 	font-size: 11px;
 	position: relative;
 	top: 5px;
-	padding-left: 10px;
+	padding-left: 77px;
 	width: 210px;
-	padding-bottom:15px;
-	color:#4a7d95;
-
+	padding-top:92px;
+	color:#9C0;
 	}
+	
+
+
+/* ICM Middle */
+#container{
+	margin: 0 auto;
+	width: 1000px;
+}
+
 
 .menu{
 	background-color: #dbdada;
@@ -250,7 +289,7 @@ input{
 	}	
 
 .corosel{
-	width:908px;
+	width:978px;
 	height:280px;
 	}
 	
@@ -278,7 +317,7 @@ input{
 	}
 	
 .ado{
-	width: 234px;
+	width: 304px;
 	height:320px;
 	}	
 
@@ -335,14 +374,20 @@ input{
 .lyrics-cont{
 	width:419px;
 	}
-	
+
+/* ICM Footer */
+
 .footer{
+	background:url(../images/footer-bg.png);
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;	
 	padding:30px;
-	border-bottom: 1px solid #C6C6C6;
+	border-bottom: 1px solid #515151;
 	margin-bottom:40px;
 	font-size:11px;
+	color:#CCC;
+	-moz-border-radius: 0 0 30px 30px;
+	border-radius: 0 0 30px 30px;
 	}
 	
 .footer-l{
@@ -361,7 +406,9 @@ input{
 .foot{
 	float:left;
 	}
-	
+
+/* ICM Scroller */
+
 ::-webkit-scrollbar {
     width: 6px;
 }

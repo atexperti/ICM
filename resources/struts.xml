@@ -32,21 +32,48 @@
 				result="error" />
 		</global-exception-mappings>
 
-		<action name="" class="home">
-			<result name="success">home.jsp</result>
-		</action>
+		
 		<action name="locale" class="home">
 			<result name="success">home.jsp</result>
 		</action>
 
 		<action name="home" class="home">
-			<interceptor-ref name="store">
-				<param name="operationMode">RETRIEVE</param>
-			</interceptor-ref>
 			<result name="success">home.jsp</result>
 		</action>
 
+		<action name="media" class="media">
+			<result name="success">media.jsp</result>
+		</action>
 		
+		<action name="lyrics" class="lyrics">
+			<result name="success">lyrics.jsp</result>
+		</action>
+
+		<action name="events" class="events">
+			<result name="success">events.jsp</result>
+		</action>
+
+		<action name="aboutUS" class="navigation">
+			<result name="success">aboutUs.jsp</result>
+		</action>
+
+		<action name="support" class="navigation">
+			<result name="success">support.jsp</result>
+		</action>
+
+		<action name="links" class="navigation">
+			<result name="success">links.jsp</result>
+		</action>
+		<action name="indian-christian-links" class="navigation">
+			<result name="success">indian-christian-links.jsp</result>
+		</action>
+				<action name="indian-churches" class="navigation">
+			<result name="success">indian-churches.jsp</result>
+		</action>
+		<action name="contactUs" class="navigation">
+			<result name="success">contactUs.jsp</result>
+		</action>
+
 		<action name="captchaimage" class="captchaImage" method="execute">
 			<result name="success" type="stream">
 				<param name="contentType">image/png</param>
@@ -70,10 +97,6 @@
 		</action>
 
 		<action name="login" class="login" method="doLogin">
-			<interceptor-ref name="store">
-				<param name="operationMode">STORE</param>
-			</interceptor-ref>
-			<interceptor-ref name="defaultStack" />
 
 			<result name="success" type="redirectAction">
 				<param name="actionName">home</param>

@@ -80,7 +80,7 @@
 	</bean>
 	<bean id="videoDao" class="org.icm.dao.VideoDaoImpl">
 	</bean>
-	<bean id="wallpaperDao" class="org.icm.dao.WallpapersDaoImpl">
+	<bean id="eventsDao" class="org.icm.dao.EventsDaoImpl">
 	</bean>
 	<bean id="pptDao" class="org.icm.dao.PptDaoImpl">
 	</bean>
@@ -88,19 +88,20 @@
 	</bean>
 	<bean id="wallpaperDao" class="org.icm.dao.WallpapersDaoImpl">
 	</bean>
+	<bean id="languageDAO" class="org.icm.dao.LanguageDAOImpl">
+	</bean>
+	<bean id="lyricsDao" class="org.icm.dao.LyricsDaoImpl">
+	</bean>
 	<bean id="mediaBo" class="org.icm.facade.MediaBoImpl">
 		<property name="audioDao" ref="audioDao" />
 		<property name="videoDao" ref="videoDao" />
+		<property name="wallpapersDao" ref="wallpaperDao" />
 		<property name="websiteTemplateDao" ref="websiteTemplateDao" />
 		<property name="pptDao" ref="pptDao" />
-		<property name="christianNeedsDaoDao" ref="christianNeedsDaoDao" />
-		<property name="websiteTemplateDao" ref="websiteTemplateDao" />
+		<property name="christianNeedsDao" ref="christianNeedsDao"/>
+		<property name="languageDAO" ref="languageDAO"/>
 	</bean>
-	<bean id="media" class="com.valuelabs.momac.action.CategoryAction"
-		init-method="init" scope="request">
-
-	</bean>
-
+	
 	<!-- Struts Actions -->
 	<bean id="baseAction" class="org.icm.action.BaseAction" scope="request">
 	</bean>
@@ -119,13 +120,39 @@
 		scope="request"></bean>
 	<bean id="home" class="org.icm.action.HomeAction" init-method="init"
 		scope="request">
-		<property name="audioDao" ref="audioDao" />
-		<property name="videoDao" ref="videoDao" />
-		<property name="websiteTemplateDao" ref="websiteTemplateDao" />
-		<property name="pptDao" ref="pptDao" />
-		<property name="christianNeedsDaoDao" ref="christianNeedsDaoDao" />
-		<property name="websiteTemplateDao" ref="websiteTemplateDao" />
+		<property name="mediaBo" ref="mediaBo" />
 	</bean>
+
+	<bean id="media" class="org.icm.action.MediaAction" init-method="init"
+		scope="request">
+		<property name="mediaBo" ref="mediaBo" />
+	</bean>
+
+	<bean id="lyrics" class="org.icm.action.LyricsAction" init-method="init"
+		scope="request">
+		<property name="lyricsBo" ref="lyricsBo" />
+		<property name="mediaBo" ref="mediaBo" />
+	</bean>
+
+	<bean id="events" class="org.icm.action.EventsAction" init-method="init"
+		scope="request">
+		<property name="eventsBo" ref="eventsBo" />
+		<property name="mediaBo" ref="mediaBo" />
+	</bean>
+
+	<bean name="navigation" class="org.icm.action.NavigationAction" init-method="init"
+		scope="request">
+		<property name="mediaBo" ref="mediaBo"></property>	
+	</bean>	
+	
+	<bean id="eventsBo" class="org.icm.facade.EventsBoImpl">
+		<property name="eventsDao" ref="eventsDao"></property>
+	</bean>	
+
+	<bean id="lyricsBo" class="org.icm.facade.LyricsBoImpl">
+		<property name="lyricsDao" ref="lyricsDao"></property>
+	</bean>	
+
 	<bean id="forgetpassword" class="org.icm.action.ForgetPasswordAction"
 		scope="request">
 	</bean>

@@ -1,6 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<%@ taglib prefix="s" uri="/struts-tags"%>
-    <div class="footer">
+<div class="footer">
     	<div class="footer-l">
         	<div class="foot">&copy; 2012 -&nbsp;</div>
             <div class="foot-title">indian christian media &nbsp;</div>
@@ -11,19 +9,22 @@
         <div class="clear"></div>
     </div>
 </div>
+</div>
 <script type="text/javascript">
-<!--
-var sprypassword1 = new Spry.Widget.ValidationPassword("sprypassword1");
-//-->
+window.onload = 
+	function()
+	{
+		$('#carousel1').Carousel(
+			{
+				itemWidth: 450,
+				itemHeight: 200,
+				itemMinWidth: 50,
+				items: 'a',
+				reflections: .0,
+				rotationSpeed: 1.8
+			}
+		);
+	}
 </script>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-		<script type="text/javascript" src="js/jquery.gallery.js"></script>
-		<script type="text/javascript">
-			$(function() {
-				$('#dg-container').gallery({
-					autoplay	:	true
-				});
-			});
-		</script/>
 </body>
 </html>

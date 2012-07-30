@@ -40,8 +40,8 @@ public class EventMaster  implements java.io.Serializable {
      private String contactPerson;
      private String contactNumber;
      private Date lastModifiedDate;
-
-    public EventMaster() {
+     private String region;
+	public EventMaster() {
     }
 
 	
@@ -211,9 +211,13 @@ public class EventMaster  implements java.io.Serializable {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-
-
-
+    @Column(name="region", nullable=false, length=100)
+    public String getRegion() {
+		return region;
+	}
+	public void setRegion(String region) {
+		this.region = region;
+	}
 }
 
 

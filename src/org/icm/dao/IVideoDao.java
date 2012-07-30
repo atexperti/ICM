@@ -24,5 +24,5 @@ public interface IVideoDao {
 	
 	int deleteVideo(int id);
 
-	Collection<Object> getVideos(String Keyword);
+	Collection<Object> getVideos(String Keyword,int count);
 }

@@ -1,8 +1,9 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+<?xml version="1.0" encoding="ISO-8859-1" ?>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -16,71 +17,60 @@
 		type="text/javascript"></script>
 	<script type="text/javascript" src="js/modernizr.custom.53451.js"></script>
 	<script type="text/javascript" src="js/flowplayer-3.2.10.min.js"></script>
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/interface.js"></script>
+	<script type="text/javascript" src="js/functions.js"></script>
+
 	<link href="SpryAssets/SpryValidationPassword.css" rel="stylesheet"
 		type="text/css" />
+	<script type="text/javascript">
+		function changLanguage(obj) {
+			location.search = '?lang=' + obj.value;
+		}
+	</script>
 </head>
 <body>
-	<div id="container">
+	<div id="web-box">
 		<div id="header">
-			<div class="icon">
-				<a href="http://indianchristianmedia.org"><img
-					src="images/icm-icon.png" width="32" height="32"
-					longdesc="http://indianchristianmedia.org" /></a>
-			</div>
-			<div class="logo">
-				<div class="head-title">
-					<a href="http://indianchristianmedia.org">indian christian
-						media</a>
+			<div class="header-box">
+				<div class="logo">
+					<div class="slogan">Enlighten...Enrich...Edify...</div>
 				</div>
-				<div class="slogan">Enlighten...Enrich...Edify...</div>
-			</div>
-			<div class="login">
-				<div class="user">
-					<input name="Username" type="text" value="Username" size="20"
-						maxlength="50" /> <span id="sprypassword1"> <label>
-							<input type="password" name="Password" id="Password" />
-					</label> <span class="passwordRequiredMsg">A value is required.</span></span> <input
-						name="Login" type="button" value="login" />
+				<div class="login">
+					<s:if test="%{#session.userId !=null}">
+						<div class="register">
+							<a href="register"> My Account </a><br></br> <a href="logout">Sign
+								Out </a>
+						</div>
+					</s:if>
+					<s:else>
+						<div class="user">
+							<s:actionerror />
+							<form action="login" method="post"
+								onsubmit="javascript:return validateLogin(this)">
+								<s:textfield name="userName" required="true" />
+								<s:textfield name="password" required="true" />
+								<s:submit cssClass="botton-bg" type="button" name="submit" value="Submit" />
+							</form>
+							
+						</div>
+						<div class="register">
+							<a href="">Forgot Password?</a> | <a href="signup.php">Create
+								Account</a>
+						</div>
+					</s:else>
+					<input type="hidden" name="language" id="language" value="English" />
+					<div class="log">
+						Select Language:
+						<s:select onchange="changLanguage(this);" name="language"
+							list="languages" listValue="languageName" listKey="languageName"
+							value="%{language}"></s:select>
+					</div>
+
+					<div class="clear"></div>
 				</div>
-				<div class="log">
-					Select Language: <SELECT>
-						<OPTION>English</OPTION>
-						<OPTION>Tamil</OPTION>
-						<OPTION>Telugu</OPTION>
-						<OPTION>Hindi</OPTION>
-					</SELECT>
-				</div>
+
 				<div class="clear"></div>
 			</div>
-			<div class="clear"></div>
 		</div>
-		<div class="menu">
-			<div class="menu-box-active">
-				<a href="home">Home</a>
-			</div>
-			<div class="menu-box">
-				<a href="media">Media</a>
-			</div>
-			<div class="menu-box">
-				<a href="events">Events</a>
-			</div>
-			<div class="menu-box">
-				<a href="lyrics">Lyrics</a>
-			</div>
-			<div class="menu-box">
-				<a href="articles">Articles</a>
-			</div>
-			<div class="menu-box">
-				<a href="support.html">Support</a>
-			</div>
-			<div class="menu-box">
-				<a href="about.html">About Us</a>
-			</div>
-			<div class="menu-box">
-				<a href="links.html">Links</a>
-			</div>
-			<div class="search-box">
-				<input name="Search" type="text" size="20" maxlength="100" />
-			</div>
-			<div class="clear"></div>
-		</div>
+		<div id="container">

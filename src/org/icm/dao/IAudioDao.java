@@ -23,5 +23,5 @@ public interface IAudioDao {
 	
 	int deleteAudio(int id);
 
-	Collection<Object> getAudios(String Keyword);
+	Collection<Object> getAudios(String Keyword,int count);
 }

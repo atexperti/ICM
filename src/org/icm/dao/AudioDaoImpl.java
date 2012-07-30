@@ -98,7 +98,7 @@ public class AudioDaoImpl extends BaseDAOImpl implements IAudioDao {
 			criteriaQuery.orderBy(criteriaBuilder.desc(from.get("lastModifiedDate")));
 			Query q = getEntityManager().createQuery(criteriaQuery);
 			audios = (ArrayList<Object>) q.getResultList();
-
+			
 		} catch (Exception e) {
 			logger.error("Exception occured while getting promotionalContent "
 					+ e);
@@ -160,10 +160,11 @@ public class AudioDaoImpl extends BaseDAOImpl implements IAudioDao {
 		}
 		return 1;
 	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
-	public Collection<Object> getAudios(String keyword) {
+	public Collection<Object> getAudios(String keyword, int count) {
 		// TODO Auto-generated method stub
 		ArrayList<Object> events = null;
 		try {
@@ -188,13 +189,15 @@ public class AudioDaoImpl extends BaseDAOImpl implements IAudioDao {
 			artist = criteriaBuilder.like(
 					from.<String> get("artist"), "%" + keyword + "%");
 			occasion = criteriaBuilder.like(
-					from.<String> get("occasion"), "%" + keyword + "%");
+					from.<String> get("ocassion"), "%" + keyword + "%");
 			type = criteriaBuilder.like(from.get("languageMaster")
 					.<String> get("languageName"), "%" + keyword + "%");
 			criteriaQuery.select(from).where(
 					criteriaBuilder.or(name, caption, genre, keywords, artist,
 							type,occasion,album));
 			Query q1 = getEntityManager().createQuery(criteriaQuery);
+			if(count != 0)
+				q1.setMaxResults(count);
 			events = (ArrayList<Object>) q1.getResultList();
 
 		} catch (Exception e) {

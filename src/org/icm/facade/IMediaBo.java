@@ -24,4 +24,9 @@ public interface IMediaBo {
 	int deleteMedia(int id, String type);
 
 	Collection<Object> getMediass(String Keyword, String type);
+	
+	Collection<Object> getMediass(String Keyword, String type,int count);
+	
+	Collection<Object> getLanguages();
+
 }

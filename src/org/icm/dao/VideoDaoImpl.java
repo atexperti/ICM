@@ -163,7 +163,7 @@ public class VideoDaoImpl extends BaseDAOImpl implements IVideoDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
-	public Collection<Object> getVideos(String keyword) {
+	public Collection<Object> getVideos(String keyword, int count) {
 		// TODO Auto-generated method stub
 		ArrayList<Object> events = null;
 		try {
@@ -188,13 +188,15 @@ public class VideoDaoImpl extends BaseDAOImpl implements IVideoDao {
 			artist = criteriaBuilder.like(
 					from.<String> get("artist"), "%" + keyword + "%");
 			occasion = criteriaBuilder.like(
-					from.<String> get("occasion"), "%" + keyword + "%");
+					from.<String> get("ocassion"), "%" + keyword + "%");
 			type = criteriaBuilder.like(from.get("languageMaster")
 					.<String> get("languageName"), "%" + keyword + "%");
 			criteriaQuery.select(from).where(
 					criteriaBuilder.or(name, caption, genre, keywords, artist,
 							type,occasion,album));
 			Query q1 = getEntityManager().createQuery(criteriaQuery);
+			if(count != 0)
+				q1.setMaxResults(count);
 			events = (ArrayList<Object>) q1.getResultList();
 
 		} catch (Exception e) {

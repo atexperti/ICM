@@ -23,6 +23,14 @@ public class EventsBoImpl implements IEventsBo {
 	
 	private IEventsDao eventsDao;
 
+	public IEventsDao getEventsDao() {
+		return eventsDao;
+	}
+
+	public void setEventsDao(IEventsDao eventsDao) {
+		this.eventsDao = eventsDao;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
