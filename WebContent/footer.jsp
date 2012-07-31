@@ -1,3 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <div class="footer">
     	<div class="footer-l">
         	<div class="foot">&copy; 2012 -&nbsp;</div>
@@ -26,5 +30,7 @@ window.onload =
 		);
 	}
 </script>
+<s:debug></s:debug>
 </body>
+
 </html>

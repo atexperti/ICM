@@ -45,7 +45,7 @@ public class UserBoImpl implements IUserBo{
 			// Retrieving UserMaster info from the DB
 			logger.info(uname +"  "+pwd);
 			List<UserMaster> custList = (List<UserMaster>) userDao.getUser(uname, pwd);
-			System.out.println(custList.size());
+			System.out.println("user size: "+custList.size());
 			if(!custList.isEmpty()){
 				UserMaster = custList.get(0);
 				// Check if the UserMaster is existed and has valid msisdn
@@ -55,6 +55,7 @@ public class UserBoImpl implements IUserBo{
 			}
 		}catch(Throwable tr){
 			logger.error(tr);
+			System.out.println(tr);
 		}
 		return null;
 	}
@@ -83,6 +84,7 @@ public class UserBoImpl implements IUserBo{
 	public UserMaster checkUser(String uname, String email) {
 		try{
 			List<UserMaster> custList = (List<UserMaster>) userDao.checkUser(uname, email);
+			System.out.println(custList.size());
 			if(custList != null && !custList.isEmpty())		
 			return custList.get(0);
 		}catch(Throwable e){

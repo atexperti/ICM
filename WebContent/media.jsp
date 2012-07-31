@@ -22,7 +22,7 @@
 				}
 			</script>
 		</div>
-		<div class="title">Latest Video</div>
+		<div class="title"><s:text name="Latest.Video"></s:text>Latest Video</div>
 		<div class="log-media-v">
 			<table width="0" border="0">
 				<s:iterator value="%{#session.video}">
@@ -39,7 +39,7 @@
 
 	<div class="box">
 		<div class="box-l">
-			<div class="title">Image of the Day</div>
+			<div class="title"><s:text name="image.of.day.text"></s:text></div>
 			<div class="image-of-the-day">
 				<img src="<s:property value="#session.imageOftheDay"/>" width="248" height="185" />
 			</div>
@@ -50,7 +50,7 @@
 		</div>
 	</div>
 	<div class="box-l">
-		<div class="title">Latest Music</div>
+		<div class="title"><s:text name="Latest.Music"></s:text></div>
 		<div class="log">
 			<div class="log-media-a">
 				<table width="0" border="0">

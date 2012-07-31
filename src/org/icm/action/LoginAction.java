@@ -42,9 +42,10 @@ public class LoginAction extends ActionSupport  {
 		}
 		System.out.println("userName: "+ userName +": password: "+password);
 		user = userBo.getUser(userName, password);
-		System.out.println(user);
+		
 		if(user!= null){
 			session.remove("loginAttempts");
+			session.remove("forgetpassword");
 			session.put("userId", user.getUserId());
 			session.put("username", user.getUserName());
 			return SUCCESS;
@@ -57,7 +58,7 @@ public class LoginAction extends ActionSupport  {
 		}
 	}
 	public String doLogout()throws Exception{
-		
+		System.out.println("calling do logout");
 		session.clear();
 		return SUCCESS;
 	}

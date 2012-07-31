@@ -48,7 +48,7 @@
 	</div>
 	<div class="box">
 		<div class="box-l">
-			<div class="title">Image of the Day</div>
+			<div class="title"><s:text name="image.of.day.text"></s:text></div>
 			<div class="image-of-the-day">
 				<img src="<s:property value="#session.imageOftheDay"/>" width="248" height="185" />
 			</div>

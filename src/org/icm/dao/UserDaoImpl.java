@@ -2,7 +2,11 @@ package org.icm.dao;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Query;
 import org.icm.model.UserMaster;
@@ -38,20 +42,37 @@ public class UserDaoImpl extends BaseDAOImpl implements IUserDao{
 	@Override
 	@Transactional
 	public Collection<UserMaster> getUser(String uname, String pwd) {
-		 Query query = getSession().createQuery("from UserMaster where userName= :userName and password= :password");
+		/* Query query = getSession().createQuery("from UserMaster where userName=:userName and password=:password");
 		 System.out.println(uname+":" +pwd);
 		 query.setParameter("userName", uname);
 		 query.setParameter("password", pwd);
-		 List<UserMaster> users = query.list();
-		 System.out.println(users.size());
-		 return users;
+		 return query.list();*/
+		try{
+		CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
+
+		CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery();
+		Root<UserMaster> from = criteriaQuery.from(UserMaster.class);
+		Predicate userNameCondition = null;
+		Predicate passwordCondition = null;
+		userNameCondition = from.get("userName").in(uname);
+		passwordCondition = from.get("password").in(pwd);
+		criteriaQuery.select(from);
+		criteriaQuery.where(passwordCondition, userNameCondition);
+
+		javax.persistence.Query q = getEntityManager().createQuery(criteriaQuery);
+		Collection<UserMaster> cmsusers = (Collection<UserMaster>) q.getResultList();
+		return cmsusers;
+		}catch (Exception e) {
+			e.printStackTrace();// TODO: handle exception
+			throw e;
+		}	
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
 	public Collection<UserMaster> checkUser(String uname, String email) {
-		
+		try{
 		if(uname !=null){
 			Query query = getSession().createQuery("from UserMaster where userName= :userName or email= :email");
 			 query.setParameter("userName", uname);
@@ -61,6 +82,11 @@ public class UserDaoImpl extends BaseDAOImpl implements IUserDao{
 			Query query = getSession().createQuery("from UserMaster where email= :email");
 			 query.setParameter("email", email);
 			 return query.list();
+		}}
+		catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	

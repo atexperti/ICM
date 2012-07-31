@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class ForgetPasswordAction extends ActionSupport {
+public class SendPasswordAction extends ActionSupport {
 	/**
 	 * 
 	 */
-	private static Logger logger = Logger.getLogger(ForgetPasswordAction.class);
+	private static Logger logger = Logger.getLogger(SendPasswordAction.class);
 	private static final long serialVersionUID = 1L;
 	private String email;
 	private String userName;
@@ -24,54 +24,58 @@ public class ForgetPasswordAction extends ActionSupport {
 	private IUserBo userBo;
 	@Autowired
 	private MailDispature mailDispature;
-	private Map<String, Object> session = ActionContext.getContext().getSession();
-	
-	
-	public String execute(){
-		session.put("forgetpassword","true");
-		return SUCCESS;
-		
-	}
-	public String sendPassword(){
-		session.remove("forgetpassword");
-		user = userBo.checkUser(userName,getEmail());
-		if(user != null){
-			mailDispature.sendMail("nagesh.vejju@gmail.com", getEmail(), "Just subject", "Hello how are you");
-			
+	private Map<String, Object> session = ActionContext.getContext()
+			.getSession();
+
+	public String execute() {
+
+		user = userBo.checkUser(userName, getEmail());
+		if (user != null) {
+			session.remove("forgetpassword");
+			mailDispature.sendMail("nagesh.vejju@gmail.com", getEmail(), "ICM",
+					"your username is: " + user.getUserName()
+							+ " and your password is: " + user.getPassword());
+
 			return SUCCESS;
 		}
 		return INPUT;
-		
+
 	}
-	public void validate(){
-		
+
+	public void validate() {
+
 	}
-	
+
 	public IUserBo getUserBo() {
 		return userBo;
 	}
+
 	public void setUserBo(IUserBo userBo) {
 		this.userBo = userBo;
 	}
+
 	public UserMaster getUser() {
 		return user;
 	}
+
 	public void setUser(UserMaster user) {
 		this.user = user;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getUserName() {
 		return userName;
 	}
+
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
-		
 }

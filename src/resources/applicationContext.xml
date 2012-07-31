@@ -106,6 +106,7 @@
 	<bean id="baseAction" class="org.icm.action.BaseAction" scope="request">
 	</bean>
 	<bean id="login" class="org.icm.action.LoginAction" scope="request"></bean>
+	<bean id="logout" class="org.icm.action.LogoutAction" scope="request"></bean>
 
 	<bean id="registerUser" class="org.icm.action.RegisterAction"
 		scope="request">
@@ -156,7 +157,9 @@
 	<bean id="forgetpassword" class="org.icm.action.ForgetPasswordAction"
 		scope="request">
 	</bean>
-
+<bean id="sendpassword" class="org.icm.action.SendPasswordAction"
+		scope="request">
+	</bean>
 	<!-- Aspect -->
 	<bean id="logAspect" class="org.icm.facade.LoggingAspect" />
 
@@ -167,10 +170,10 @@
 	<!-- Stuff required for hibernate -->
 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.gmail.org" />
+		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
 		<property name="username" value="nagesh.vejju@gmail.com" />
-		<property name="password" value="S@m@th@n@g@r" />
+		<property name="password" value="5@m@th@n@g@r" />
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.smtp.auth">true</prop>

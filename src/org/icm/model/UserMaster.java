@@ -29,7 +29,11 @@ import javax.persistence.TemporalType;
 public class UserMaster  implements java.io.Serializable {
 
 
-     private Integer userId;
+     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4640685064361517820L;
+	private Integer userId;
      private String userName;
      private String password;
      private String email;

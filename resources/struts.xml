@@ -4,7 +4,7 @@
 
 <struts>
 
-	<constant name="struts.locale" value="es_MX" />
+	<constant name="struts.locale" value="en" />
 	<constant name="struts.custom.i18n.resources" value="properties/global,properties/config" />
 	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
 	<constant name="struts.ui.theme" value="css_xhtml" />
@@ -83,12 +83,21 @@
 		</action>
 
 		<action name="forgetpassword" class="forgetpassword">
-			<result>home.jsp</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">home</param>
+				<param name="namespace">/</param>
+			</result>
 		</action>
 
-		<action name="getpassword" class="forgetpassword" method="sendPassword">
-			<result name="success">home.jsp</result>
-			<result name="input">home.jsp</result>
+		<action name="getpassword" class="sendpassword">
+			<result name="success" type="redirectAction">
+				<param name="actionName">home</param>
+				<param name="namespace">/</param>
+			</result>
+			<result name="input" type="redirectAction">
+				<param name="actionName">home</param>
+				<param name="namespace">/</param>
+			</result>
 		</action>
 		
 		<action name="useraccount" class="userAccount" method="execute">
@@ -107,10 +116,7 @@
 				<param name="namespace">/</param>
 			</result>
 		</action>
-		<action name="logout" class="login" method="doLogout">
-			<interceptor-ref name="validation">
-				<param name="excludeMethods">doLogout</param>
-			</interceptor-ref>
+		<action name="logout" class="logout">
 			<result name="success" type="redirectAction">
 				<param name="actionName">home</param>
 				<param name="namespace">/</param>

@@ -21,14 +21,18 @@ public class MailDispature {
 
 	
 	public void sendMail(String from, String to, String subject, String msg) {
-
+		try{
 		SimpleMailMessage message = new SimpleMailMessage();
-		logger.info("inside send mail");
+		System.out.println("inside send mail");
 		message.setFrom(from);
 		message.setTo(to);
 		message.setSubject(subject);
 		message.setText(msg);
 		mailSender.send(message);
+		}catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}
 	}
 
 	

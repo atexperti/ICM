@@ -6,8 +6,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Indian Christian Media</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="keywords" content="<s:text name="header.meta.keywords" />" />
+	<meta name="description"
+		content="<s:text name="header.meta.description" />" />
+<title><s:text name="title"></s:text></title>
 <link rel="stylesheet" type="text/css" href="css/icm.css" />
 <link rel="stylesheet" type="text/css" href="css/corosel.css" />
 <link
@@ -34,43 +37,80 @@
 		<div id="header">
 			<div class="header-box">
 				<div class="logo">
-					<div class="slogan">Enlighten...Enrich...Edify...</div>
+					<div class="slogan"><s:text name="slogan"></s:text></div>
 				</div>
-				<div class="login">
-					<s:if test="%{#session.userId !=null}">
-						<div class="register">
-							<a href="register"> My Account </a><br></br> <a href="logout">Sign
-								Out </a>
-						</div>
-					</s:if>
-					<s:else>
+
+				<s:if test="%{#session.userId !=null}">
+					<div class="login">
 						<div class="user">
-							<s:actionerror />
-							<form action="login" method="post"
-								onsubmit="javascript:return validateLogin(this)">
-								<s:textfield name="userName" required="true" />
-								<s:textfield name="password" required="true" />
-								<s:submit cssClass="botton-bg" type="button" name="submit" value="Submit" />
-							</form>
-							
+							<s:text name="header.welcomeText" />
+							:&nbsp;
+							<s:property value="%{#session.username}" />
+							<br></br> <a href="myAccount"><s:text name="My.Account"></s:text></a>&nbsp;|&nbsp;<a
+								href="logout.action"><s:text name="Sign.Up"></s:text></a>
 						</div>
-						<div class="register">
-							<a href="">Forgot Password?</a> | <a href="signup.php">Create
-								Account</a>
+						<input type="hidden" name="language" id="language" value="English" />
+						<div class="log">
+							<s:text name="choose.lang"></s:text>
+							<s:select onchange="changLanguage(this);" name="language"
+								list="languages" listValue="languageName" listKey="languageName"
+								value="%{language}"></s:select>
 						</div>
-					</s:else>
+
+						<div class="clear"></div>
+					</div>
+				</s:if>
+				<s:elseif test="%{#session.forgetpassword!=null}">
+				<div class="forgetlogin">
+					<div class="user">
+						<s:form theme="simple" action="getpassword" method="post">
+							<span class="Star">*</span>
+							<s:text name="header.forget.uname.form.text" />
+								&nbsp;<s:textfield name="userName" cssClass="TxtBox" />
+							<br />
+							<span class="Star">*</span>
+							<s:text name="header.forget.email.form.text" />
+								&nbsp;<s:textfield name="email" cssClass="TxtBox" />
+								&nbsp;
+								<button type="submit"><s:text name="submit"></s:text></button>
+						</s:form>
+					</div>
 					<input type="hidden" name="language" id="language" value="English" />
-					<div class="log">
-						Select Language:
+					
+
+					<div class="clear"></div>
+				</div>
+			</s:elseif>
+			<s:else>
+			<div class="login">
+				<s:form action="login.action" method="post" theme="simple"
+					onSubmit="javascript:return validateLogin(this)">
+					<div class="user">
+						<s:textfield name="userName" cssClass="LoginTxtBox" />
+						<s:password name="password" cssClass="LoginTxtBox" />
+
+						<button type="submit"><s:text name="login"></s:text></button>
+						<br /> <a href="forgetpassword"><s:text name="forget.text"></s:text></a><br />
+						<a href="register"><s:text name="signup.text"></s:text></a>
+					</div>
+
+
+				</s:form>
+				<input type="hidden" name="language" id="language" value="English" />
+				<div class="log">
+					<s:text name="choose.lang"></s:text>
 						<s:select onchange="changLanguage(this);" name="language"
 							list="languages" listValue="languageName" listKey="languageName"
 							value="%{language}"></s:select>
 					</div>
 
-					<div class="clear"></div>
-				</div>
-
 				<div class="clear"></div>
-			</div>
 		</div>
-		<div id="container">
+		</s:else>
+
+
+
+		<div class="clear"></div>
+	</div>
+	</div>
+	<div id="container">
